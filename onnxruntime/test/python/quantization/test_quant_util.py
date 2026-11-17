@@ -265,9 +265,7 @@ class TestQuantUtil(unittest.TestCase):
                     self.assertTrue(actual_quant_val >= qmin and actual_quant_val <= qmax)
 
                     unclipped_val = (data_float[index] / scale).round() + zero_point
-                    expected_quant_val = numpy.array(
-                        numpy.clip(unclipped_val, int(qmin), int(qmax)), dtype=np_int_type
-                    )
+                    expected_quant_val = numpy.array(numpy.clip(unclipped_val, int(qmin), int(qmax)), dtype=np_int_type)
 
                     self.assertEqual(numpy.array(actual_quant_val), expected_quant_val)
 
