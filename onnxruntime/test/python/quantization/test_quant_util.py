@@ -264,10 +264,10 @@ class TestQuantUtil(unittest.TestCase):
                 for index, actual_quant_val in enumerate(data_quant.flatten()):
                     self.assertTrue(actual_quant_val >= qmin and actual_quant_val <= qmax)
 
-                    expected_quant_val = numpy.asarray((data_float[index] / scale).round() + zero_point).astype(
-                        np_int_type
+                    unclipped_val = (data_float[index] / scale).round() + zero_point
+                    expected_quant_val = numpy.array(
+                        numpy.clip(unclipped_val, int(qmin), int(qmax)), dtype=np_int_type
                     )
-                    numpy.clip(expected_quant_val, qmin, qmax, out=expected_quant_val)
 
                     self.assertEqual(numpy.array(actual_quant_val), expected_quant_val)
 
